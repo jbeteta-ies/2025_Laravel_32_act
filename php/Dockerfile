@@ -20,9 +20,9 @@ RUN docker-php-ext-install pdo pdo_mysql xml ctype zip
 # Instalamos Composer, gestor de dependencias de PHP
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Instalamos Xdebug (Comentado porque ya debe estar instalado en la imagen base)
-# RUN pecl install xdebug \
-#   && docker-php-ext-enable xdebug
+# Instalamos Xdebug 
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug
 
 # Opcional: Definir directorio de trabajo
 WORKDIR /var/www/html
