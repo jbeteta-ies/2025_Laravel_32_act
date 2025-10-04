@@ -13,5 +13,4 @@ try {
     echo "<p>Host: $host, DB: $db, User: $user, Pass: $pass</p>";
     phpinfo(); // Muestra información de PHP para depuración
 }
- phpinfo(); 
 ?>
