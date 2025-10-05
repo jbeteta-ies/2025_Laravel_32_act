@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+h1 {
+    color: darkblue;
+}
+h2 {
+    color: #333;
+}
+p {
+    color: #666;
+}
+.card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    display: inline-block;
+    width: 200px;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: bold;
+}
