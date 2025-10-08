@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Note;
+use App\Http\Controllers\UserController;
 
-Route::view('/', 'landing.index')->name('home');
+Route::get('/', [UserController::class, 'index'])->name('user.index');
+Route::get('/create', [UserController::class, 'create'])->name('user.create');
 
