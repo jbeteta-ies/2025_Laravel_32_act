@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Note;
+use App\Http\Requests\NoteRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -36,16 +37,13 @@ class NoteController extends Controller
     }
     */
 
-    public function store(Request $request): RedirectResponse
+    public function store(NoteRequest $request): RedirectResponse
     {
-        $note = new Note();
-        $note->title = $request->input('title');
-        $note->description = $request->input('description');
-        $note->date = $request->input('date');
-        $note->done = $request->input('done') ? 1 : 0;
-        $note->save();
-        // Redirigir a la lista de notas
-        return redirect()->route('note.index');
+        $data = $request->all();
+        dd($data);
+        $data['done'] = $request->has('done') ? 1 : 0; // Convert checkbox to boolean
+        Note::create($data);
+        return redirect()->route('note.index')->with('success', 'Nota creada correctamente.');
     }
 
     /* Otra forma de hacer el método edit, utilizando inyección de dependencias */
@@ -62,15 +60,20 @@ class NoteController extends Controller
         return view('notes.edit', compact('note'));
     }
 
-    /* Otra forma de hacer el método update, utilizando inyección de dependencias */
-    /*
-    public function update(Request $request, Note $note)
-    {
-         $note->update($request->all());
-         return redirect()->route('note.index');
-    }
-    */
 
+
+    /* Otra forma de hacer el método update, utilizando inyección de dependencias */
+    
+    public function update(NoteRequest $request, Note $note): RedirectResponse
+    {
+        $data = $request->all();
+        $data['done'] = $request->has('done') ? true : false; // Convert checkbox to boolean
+        $note->update($data);
+        return redirect()->route('note.index')->with('success', 'Nota actualizada correctamente.');
+    }
+    
+    
+    /*
     public function update(Request $request, $id): RedirectResponse
     {
         $note = Note::findOrFail($id);
@@ -81,6 +84,7 @@ class NoteController extends Controller
         $note->save();
         return redirect()->route('note.index');
     }
+    */
 
     /* Otra forma de hacer el método destroy, utilizando inyección de dependencias */
     /*
@@ -95,7 +99,6 @@ class NoteController extends Controller
     {
         $note = Note::findOrFail($id);
         $note->delete();
-        return redirect()->route('note.index');
+        return redirect()->route('note.index')->with('success', 'Nota eliminada correctamente.');
     }
-
 }

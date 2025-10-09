@@ -13,6 +13,7 @@
         </nav>
     </header>
     <main>
+        @include('_partials.messages')
         @yield('content')
     </main>
 </body>
