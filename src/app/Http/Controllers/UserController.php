@@ -10,7 +10,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $usuarios = User::all();
+        //$usuarios = User::all();
+
+        $usuarios = User::where('age', '>=', 18)
+                ->where('zipCode', '=', 28080)
+                ->get();
+
         return view('users.index', compact('usuarios'));
     }
 
