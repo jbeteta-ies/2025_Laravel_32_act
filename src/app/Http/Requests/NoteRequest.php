@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class NoteRequest extends FormRequest
 {
@@ -14,26 +16,27 @@ class NoteRequest extends FormRequest
         return true;
     }
 
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'done' => $this->has('done') ? true : false,
-        ]);
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|min:10',
+            'description' => 'required|min:10|string',
             'date' => 'required|date',
-            'done' => 'nullable|boolean', # Checkbox can be null or true/false
+            'done' => 'boolean'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Error de validación',
+            'errors' => $validator->errors()
+        ], 422, [], JSON_UNESCAPED_UNICODE));
     }
 }

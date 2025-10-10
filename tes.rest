@@ -1,0 +1,31 @@
+GET http://localhost:8080/api/notes
+
+###
+###
+    POST http://localhost:8080/api/notes HTTP/1.1
+    content-type: application/json
+
+    {
+        "title": "Nueva Nota",
+        "description": "abc",
+        "date": "2023-10-01",
+        "done": false
+    }
+###
+
+    PUT http://localhost:8080/api/notes/5 HTTP/1.1
+    content-type: application/json
+
+    {
+        "id": 5,
+        "title": "Nota Modificada",
+        "description": "Descripción de la nota modificada",
+        "date": "2023-10-01",
+        "done": true
+    }
+
+###
+    DELETE http://localhost:8080/api/notes/5
+
+###
+GET http://localhost:8080/api/notes/4
