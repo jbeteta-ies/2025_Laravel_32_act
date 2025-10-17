@@ -3,6 +3,8 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+test
+
 # MySQL data a temporarily stored in the project
 mysql/data/*
 mysql/tmp/*
